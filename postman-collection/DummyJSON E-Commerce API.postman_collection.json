@@ -1,0 +1,265 @@
+{
+  "info": {
+    "_postman_id": "20002bf1-0de1-4870-95a0-4db4050aab33",
+    "name": "DummyJSON E-Commerce API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52655596"
+  },
+  "item": [
+    {
+      "name": "Get All Products",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "  pm.response.to.have.status(200);\r",
+              "});\r",
+              "pm.test(\"Response contains a list of products\", function () {\r",
+              "  const body = pm.response.json();\r",
+              "  pm.expect(body.products).to.be.an(\"array\").that.is.not.empty;\r",
+              "});\r",
+              "pm.test(\"Response time is under 2000ms\", function () {\r",
+              "  pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/products",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Single Product",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "  pm.response.to.have.status(200);\r",
+              "});\r",
+              "pm.test(\"Product id is 1\", function () {\r",
+              "  pm.expect(pm.response.json().id).to.eql(1);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/products/1",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Products",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "  pm.response.to.have.status(200);\r",
+              "});\r",
+              "pm.test(\"Search returns matching products\", function () {\r",
+              "  pm.expect(pm.response.json().products).to.be.an(\"array\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/products/search?q=phone",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "phone"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Non-Existing Products",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 404\", function () {\r",
+              "  pm.response.to.have.status(404);\r",
+              "});\r",
+              "pm.test(\"Error message is returned\", function () {\r",
+              "  pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/products/999999",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "products",
+            "999999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login(valid)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "  pm.response.to.have.status(200);\r",
+              "});\r",
+              "pm.test(\"Response contains an access token\", function () {\r",
+              "  pm.expect(pm.response.json()).to.have.property(\"accessToken\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"emilys\",\r\n  \"password\": \"emilyspass\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/auth/login",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login(invalid)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "  pm.response.to.have.status(400);\r",
+              "});\r",
+              "pm.test(\"Message says invalid credentials\", function () {\r",
+              "  pm.expect(pm.response.json().message).to.eql(\"Invalid credentials\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"emilys\",\r\n  \"password\": \"wrongpass\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/auth/login",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
