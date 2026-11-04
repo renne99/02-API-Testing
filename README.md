@@ -36,3 +36,7 @@ This project tests a practice e-commerce REST API using Postman. It checks produ
 
 ## Notes
 DummyJSON is a practice API that only pretends to save changes, so create, update and delete requests are not included.
+
+## Future Improvements
+- Add REST Assured tests in Java
+- Run the collection automatically with GitHub Actions
