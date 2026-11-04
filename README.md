@@ -1,4 +1,3 @@
-# 02-API-Testing
 
 # API Testing - DummyJSON E-Commerce API
 
